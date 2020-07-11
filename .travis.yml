@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t cjwbrandon/multi-client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run cjwbrandon/multi-docker-fib-test npm test -- --coverage
+
+after_success:
+  - docker build -t cjwbrandon/multi-client ./client
+  - docker build -t cjwbrandon/multi-nginx ./nginx
+  - docker build -t cjwbrandon/multi-server ./server
+  - docker build -t cjwbrandon/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push to docker hub
+  - docker push -t cjwbrandon/multi-client ./client
+  - docker push -t cjwbrandon/multi-nginx ./nginx
+  - docker push -t cjwbrandon/multi-server ./server
+  - docker push -t cjwbrandon/multi-worker ./worker
