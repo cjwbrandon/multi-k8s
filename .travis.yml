@@ -3,16 +3,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t cjwbrandon/multi-client-test -f ./client/Dockerfile.dev ./client
+  - docker build -t brandoncjw/multi-client-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run cjwbrandon/multi-client-test npm test -- --coverage
+  - docker run brandoncjw/multi-client-test npm test -- --coverage
 
 after_success:
-  - docker build -t cjwbrandon/multi-client ./client
-  - docker build -t cjwbrandon/multi-nginx ./nginx
-  - docker build -t cjwbrandon/multi-server ./server
-  - docker build -t cjwbrandon/multi-worker ./worker
+  - docker build -t brandoncjw/multi-client ./client
+  - docker build -t brandoncjw/multi-nginx ./nginx
+  - docker build -t brandoncjw/multi-server ./server
+  - docker build -t brandoncjw/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push to docker hub
