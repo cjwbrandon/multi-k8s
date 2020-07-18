@@ -20,3 +20,15 @@ after_success:
   - docker push brandoncjw/multi-nginx
   - docker push brandoncjw/multi-server
   - docker push brandoncjw/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-ap-southeast-1-068353330993
+  bucket_path: multi-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
