@@ -10,15 +10,15 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div className="App-header">
+          <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <h2>Fib Calculator</h2>
+            <h1 className="App-title">Fib Calculator version 2</h1>
             <Link to="/">Home</Link>
             <Link to="/otherpage">Other Page</Link>
-          </div>
+          </header>
           <div>
             <Route exact path="/" component={Fib} />
-            <Route exact path="/otherpage" component={OtherPage} />
+            <Route path="/otherpage" component={OtherPage} />
           </div>
         </div>
       </Router>
